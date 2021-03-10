@@ -88,89 +88,94 @@
         
         <center><h3>Sign Up</h3></center>
         
+     
         
       </div>
       <div class="card-body">
-        <form action="{{ url_for('signup') }}" method="POST">
+        <form action="#" method="POST">
           <div class="input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Name </i></span>
+            <div class="input-group-prepend"> {{ form.csrf_token }}
+              <span class="input-group-text text-align-center"><i> {{ form.name.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="name" placeholder="Full Name">
+            <!-- <input type="text" class="form-control" name="name" placeholder="Full Name"> -->
+            {{ form.name() }}
             
           </div>
           <!-- <br> -->
           <div class="input-group form-group text-white">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Gender </i></span>
+              <span class="input-group-text text-align-center"><i>Gender</i></span>
             </div>
-           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Male&nbsp<input type="radio" name="gender" value="male">&nbsp&nbsp
+           &nbsp&nbsp&nbsp&nbsp&nbsp Male&nbsp<input type="radio" name="gender" value="male">&nbsp&nbsp
             Female&nbsp<input type="radio" name="gender" value="female" >
             &nbsp&nbsp
             Other&nbsp<input type="radio" name="gender" value="other" >
             
           </div>
+            
+        
           <!-- <br> -->
             <div class="input-group form-group text-white">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Above 18</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.age.label }}</i></span>
            </div>
-           &nbsp&nbsp&nbsp&nbsp&nbsp&nbspYes&nbsp<input type="radio" name="above_18" value="yes">&nbsp&nbsp
-            No&nbsp<input type="radio" name="above_18" value="no" >
+           &nbsp{{ form.age() }}
             
           </div>
           <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Address</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.address.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="address"placeholder="Address">
+            {{ form.address() }}
             
           </div>
           <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Contact no. </i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.contact.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="contact" placeholder="Mobile">
+            {{ form.contact() }}
+            
             
           </div>
           <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Email Id</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.email_id.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="email_id"placeholder="Email Id">
+           {{ form.email_id() }}
             
           </div>
           <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Username</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.username.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="username"placeholder="Username">
+             {{ form.username() }}
             
           </div>
            <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Password</i></span>
+              <span class="input-group-text text-align-center"><i>  {{ form.password.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="password" placeholder="Password">
+           {{ form.password() }}
             
           </div>
            <!-- <br> -->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i>Confirm</i></span>
+              <span class="input-group-text text-align-center"><i>{{ form.passwor.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="img" placeholder="Confirm Password">
+           {{ form.passwor() }}
           
           </div>
-    <!-- <br> -->
+         
        <div class="form-group me-2 align-items-center justify-content-center">
-      <center><a href="{{ url_for('show_all') }}"> <input type="submit" value="SignUp" class="btn float-right login_btn text-white"></a>
-         </center> </div>
+     
+        <a href="{{ url_for('show_all')}}"><input type="submit" value="SignUp" class="btn float-right login_btn text-white"></a>
+         </div>
           
         </form>
       

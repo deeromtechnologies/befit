@@ -4,6 +4,9 @@ from datetime import datetime,date
 import bpdb
 import uuid
 import random
+from flask_wtf import FlaskForm
+from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,FileField
+from wtforms.validators import DataRequired
 
 id = uuid.uuid1()
 n = random.randint(0,100)
@@ -15,7 +18,29 @@ app=Flask("__name__")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BEFITDB.sqlite3'
 db = SQLAlchemy(app)
 app.secret_key="f3er7677r7q3r5"
-# app.config["UPLOAD_FOLDER"] = join(dirname(realpath(__file__)), "static/uploads")
+
+
+
+class MyForm(FlaskForm):
+    name = StringField('Name',[validators.Length(min=5, max=27)])
+    username = StringField('Username', [validators.Length(min=5, max=27)])
+    # gender = StringField('gender', validators=[DataRequired()])
+    age = IntegerField('Age',validators=[DataRequired()])
+    address= StringField('Address', [validators.Length(min=10, max=100)])
+    contact = IntegerField('Contact', validators=[DataRequired()])
+    email_id = StringField('Email id', validators=[DataRequired()])
+    password = PasswordField('Password', [validators.Length(min=6, max=15)])
+    passwor = PasswordField('Confirm', [validators.Length(min=6, max=15)])
+    # img = FileField('img', validators=[DataRequired()])
+    # usertype = StringField('usertype', validators=[DataRequired()])
+    # status = StringField('status', validators=[DataRequired()])
+
+# @app.route('/submit', methods=('GET', 'POST'))
+# def submit():
+#     form = MyForm()
+#     if form.validate_on_submit():
+#         return "Successfully Validated"
+    # return render_template('showall.html')
 
 #-----Table Register: tablename-register-----#
 class Register(db.Model):
@@ -28,7 +53,7 @@ class Register(db.Model):
 	contact = db.Column(db.String(80), unique=True, nullable=False)
 	email_id = db.Column(db.String(120), unique=True, nullable=False)
 	password = db.Column(db.String(80), unique=False, nullable=False)
-	img = db.Column(db.String(100), unique=False, nullable=False)
+	img = db.Column(db.String(100), nullable=False)
 	usertype = db.Column(db.String(80), unique=False, nullable=False)
 	status = db.Column(db.String(100), unique=False, nullable=False)
 
@@ -48,6 +73,7 @@ class Register(db.Model):
 
 #-----Table Blog: tablename-blog-----#
 class Blog(db.Model):
+
 	blog_id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), db.ForeignKey('register'), nullable=False)
 	image = db.Column(db.String(100), unique=False, nullable=False)
@@ -126,16 +152,34 @@ def logout():
 #-----Signup-----#
 @app.route('/signup',methods=['POST','GET'])
 def signup():
-	
-	if request.method =="POST":
+	form = MyForm(request.form)
+
+	if request.method =="POST" and form.validate_on_submit():
+		# return "Successfully Validated"
 		# bpdb.set_trace()
-		register = Register(username=request.form['username'],name=request.form['name'],gender=request.form['gender'],above_18=request.form['above_18'],address=request.form['address'],contact=request.form['contact'],email_id=request.form['email_id'],password=request.form['password'],img=request.form['img'],status="pending",usertype="trainer")	
+		register = Register(username=form.username.data,name=form.name.data,gender=request.form['gender'],above_18=form.age.data,address=form.address.data,contact=form.contact.data,email_id=form.email_id.data,password=form.password.data,img="no_image",status="pending",usertype="trainer")	
 		db.session.add(register)
 		db.session.commit()
 		# bpdb.set_trace()
-		result1=Register.query.filter_by(username=request.form['username']).first()
-		return render_template('table.html',result=result1)
-	return render_template('sign.html')	
+		# result1=Register.query.filter_by(username=request.form['username']).first()
+		result1=Register.query.all()
+		return render_template('showall.html',result=result1)	
+	return render_template('sign.html',form=form)	
+
+
+
+# @app.route('/signup',methods=["POST","GET"])
+# def signup():
+#     form=RegistrationForm(request.form)
+#     #bpdb.set_trace()
+#     if request.method =="POST" and form.validate():
+#         #bpdb.set_trace()
+#         user = signup(form.id.data, form.firstname.data, form.lastname.data, form.username.data, form.email.data,form.password.data,form.confirmpassword.data)
+#         db.session.add(user)
+#         return redirect(url_for('users'))
+#     else:   
+#         return render_template('signup.html',form=form) 
+
 
 
 # @app.route('/visits-counter/')
