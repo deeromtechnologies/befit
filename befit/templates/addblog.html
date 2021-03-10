@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <form action="#" method="POST">
+      <table border="3">
+        <tr>
+          <td>Username</td>
+          <td><input type="text" name ="username" value="{{result.username}}"></td>
+        </tr>
+        <tr>
+          <td>Name </td>
+          <td><input type="text" name="name" value="{{result.name}}" ></td>
+        </tr>
+        <tr>
+          <td>Image</td>
+          <td><input type="text"  name="image" ></td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td><input type="text"  name="title"></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td><textarea name="des"></textarea></td>
+        </tr>
+        <td></td><td><a href="{{ url_for('blog') }}"><input type="submit" value="Add" ></a></td>
+        </table> 
+      </form>
+    </body>
+  </html>

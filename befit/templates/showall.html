@@ -1,0 +1,174 @@
+      <form action="#" method="POST">
+      <form action="#" method="POST">
+<html>
+
+  <head>
+
+           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+         <link href="{{ url_for('static',filename='style.css')}}" rel="stylesheet">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head> 
+
+ <body class="header" style="background-image: url({{ url_for('static', filename='Images/fit1.jpg')}})"> 
+    
+    <div class="overlay">
+
+      
+      <div class="container">
+       
+        <div class="row">
+
+          
+          <!--  Navigation -->
+      
+            <nav class="navbar navbar-expand-lg navbar-light ">
+
+                <div class="container-fluid">
+                
+                <img src="/static/Images/logo.jpeg" height=130px width=160px>
+               
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link active text-white" aria-current="page" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="about.html">About</a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="nav-link text-white" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="contact.html">Contact us</a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="nav-link text-white" href="blog.html">Blog</a>
+                    </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="team.html">Our Team</a>
+                       </li>
+                        <li class="nav-item">
+                         <a class="nav-link text-white" href="service.html">Services</a>
+                       </li>
+                         <li class="nav-item">
+                         <a class="nav-link text-white" href="map.html">Site Map</a>
+                       </li>
+                         <li class="nav-item">
+                         <a class="nav-link text-white" href="gallery.html">Gallery</a>
+                       </li>
+                  
+                  </ul>
+
+
+                   <form class="d-flex justify-right">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                  </form>
+
+                  </div>
+
+                </div>
+            </nav>
+            <hr>
+          </div>
+        </div>
+    
+
+      <!-- Navigation -->
+
+<!-- Login form -->
+  <div class="container">
+    <div class="row">
+      <form action="#" method="POST">
+        <h1 class="text-center text-white"> Profile</h1>
+      <table class="table text-white" style="margin-left:40">
+        
+            
+             <thead>
+            <tr>
+               <th>Username</th>
+               <th>Name</th>
+               <th>Gender</th>
+               <th>Above 18 or not</th>
+               <th>Contact</th>
+               <th>Email id</th>
+               <th>Password</th>
+               <th>Image</th>
+               <th>Status</th>
+               <th>Usertype</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for user in result %}
+               <tr>
+                  <td>{{ user.username}}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.gender }}</td>
+                  <td>{{ user.above_18 }}</td>
+                  <td>{{ user.contact}}</td>
+                  <td>{{ user.email_id}}</td>
+                  <td>{{ user.password}}</td>
+                  <td>{{ user.img}}</td>
+                  <td>{{ user.status}}</td>
+                  <td>{{ user.usertype}}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+            
+         
+         
+        </table>
+          </div>
+          <div class="form-group">
+           <center> <input type="submit" value="Edit Profile" class="btn float-right login_btn text-white"> </center>
+          </div>
+         <br><br>
+        </form>
+      
+      </div>
+    
+    </div>
+  </div>
+</div>
+</div>
+<br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<footer>
+  <!-- Footer -->
+  <section id="footer">
+    <div class="container">
+     
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+          <ul class="list-unstyled list-inline social text-center">
+            <li class="list-inline-item"><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-google-plus"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+          <ul class="list-unstyled list-inline social text-center text-white">
+            <li class="list-inline-item">✆ +91 9834 457 4324</li>
+            <li class="list-inline-item">✉ BeFit@gmail.com</li>
+          </ul>
+        </div>
+        <hr>
+        <center><p class="h6"><a class="text-green ml-2" href="https://www.BeFit.com" target="_blank">©Copyright 2021.All right Reserved.</a></p></center>
+      </div>  
+    </div>
+  </section>
+  <!-- ./Footer -->
+
+   </footer> 
+  </body>
+
+</html>

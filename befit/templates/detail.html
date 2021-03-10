@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      
+      <!-- {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %} -->
+		
+      <h3><a href = "{{ url_for('signup') }}">Add User</a></h3>
+      
+      <table border='3'>
+         <thead>
+            <tr>
+               <th>Username</th>
+               <th>Name</th>
+               <th>Gender</th>
+               <th>Above 18 or not</th>
+               <th>Contact</th>
+               <th>Email id</th>
+               <th>Password</th>
+               <th>Image</th>
+               <th>Status</th>
+               <th>Usertype</th>
+            </tr>
+         </thead>
+
+         <tbody>
+           
+               <tr>
+                  <td>{{ result.username}}</td>
+                  <td>{{ result.name }}</td>
+                  <td>{{ result.gender }}</td>
+                  <td>{{ result.above_18 }}</td>
+                  <td>{{ result.contact}}</td>
+                  <td>{{ result.email_id}}</td>
+                  <td>{{ result.password}}</td>
+                  <td>{{ result.img}}</td>
+                  <td>{{ result.status}}</td>
+                  <td>{{ result.usertype}}</td>
+                  
+               </tr>
+           
+         </tbody>
+      </table>
+   </body>
+</html>

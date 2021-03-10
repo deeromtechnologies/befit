@@ -1,0 +1,302 @@
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+
+
+
+body html
+{
+  margin:0;
+  padding:0;
+
+}
+html,body,h1,h2,h3,h4,h5,h6,a{
+ font-family: "Raleway";
+
+}
+.navbar{ background: transparent;}
+.nav-link:hover{ 
+  
+   background-color:#b30000;}
+
+.header{
+ background-image: url("../Images/fit1.jpg");
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}
+.overlay{
+ position: absolute;
+ min-height:150%;
+ min-width: 100%;
+ left: 0;
+ top: 0;
+ background: rgba(0, 0, 0, 0.6);
+}
+.description{
+
+    position: absolute;
+    top: 30%;
+    margin: auto;
+    padding: 7em;
+    
+}
+.description h1{
+ color:  #b30000 ;
+ text-align: 100;
+}
+.description p{
+ color:white;
+ font-size: 20px;
+ width: 50%;
+ line-height: 1.5;
+}
+.description button{
+ border:1px  solid  #b30000;
+ background: #b30000;
+ color:#fff;
+}
+
+
+.about{
+ margin: 4em 0;
+ padding: 1em;
+ position: absolute;
+
+}
+.about h1{
+ color:#F97300;
+ margin: 2em;
+}
+.about img{
+ height: 100%;
+    width: 100%;
+    border-radius: 50%
+}
+.about span{
+ display: block;
+ color: #888;
+ position: absolute;
+ left: 115px;
+}
+.about .desc{
+ padding: 2em;
+ border-left:4px solid #10828C;
+}
+.about .desc h3{
+ color: #10828C;
+}
+.about .desc p{
+ line-height:1.5;
+ color:#888;
+}
+.h1
+{
+	color:  #b30000;
+}
+
+
+
+
+.contact-form{
+ margin: 6em 0;
+ position: relative;  
+}
+
+.contact-form h1{
+ padding:2em 1px;
+ color:  #b30000; 
+}
+.contact-form .right{
+ max-width: 600px;
+}
+.contact-form .right .btn-secondary{
+ background:#b30000;
+ color: #fff;
+ border:0;
+ width: 500px;
+ margin-right:100px;
+
+}
+.contact-form .right .form-control::placeholder{
+ color:  secondary;
+ font-size: 16px;
+}
+
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+section {
+    padding: 10px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #b30000;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+#footer {
+    background: black !important;
+}
+#footer h5{
+  padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    color:#ffffff;
+}
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+#footer ul.social li{
+  padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+  font-size:25px;
+  -webkit-transition: .5s all ease;
+  -moz-transition: .5s all ease;
+  transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+  font-size:30px;
+  margin-top:-0;
+}
+#footer ul.social li a,
+{
+  color:#ffffff;
+}
+}
+#footer ul.social li a:hover{
+  color:#eeeeee;
+}
+
+
+@media (max-width:767px){
+  #footer h5 {
+    padding-left: 0;
+    border-left: transparent;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+}
+
+
+.card1{
+height: 500px;
+margin-top: 120px;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.6) !important;
+}
+
+
+
+
+
+
+.card{
+height: 800px;
+margin-top:150px;
+margin-bottom: 10px;
+width: 400px;
+background-color: rgba(0,0,0,0.6) !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #b30000;
+}
+
+.social_icon span:hover{
+color: black;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 100px;
+/*background-color: #b30000;*/
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+.input-group-prepend span,input[type="text"],input[type="email"],input[type="password"]
+{
+  height:50px;
+  max-width: 500px;
+}
+input[type="radio"]
+{
+	
+	height:25px;
+}
+textarea{max-width: 500px;}
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #b30000;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+
+
+
+
+
+
+
