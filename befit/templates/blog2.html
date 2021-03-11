@@ -4,24 +4,16 @@
       <table border="3">
 
         
+       
+        <tr>  <th>Blog id</th><td>{{resul.blog_id}}</td></tr>
+         <tr> <th>Username</th><td>{{resul.username}}</td></tr>
+         <tr>  <th>Image</th><td>{{resul.image}}</td></tr>
+         <tr>   <th>Title</th>  <td>{{resul.title}}</td></tr>
+         <tr>  <th>Description</th><td>{{resul.des}}</td></tr>
+        <tr>   <th>Date</th><td>{{resul.date}}</td></tr>      
         <tr>
-          <th>Blog_id</th>
-          <th>Username</th>
-           <th>Image</th>
-            <th>Title</th>
-             <th>Description</th>
-              <th>Date</th>
-                </tr>
-        {% for resul in result%}
-        <tr>
-          <td>{{resul.blog_id}}</td>
-          <td>{{resul.username}}</td>
-          <td>{{resul.image}}</td>
-          <td>{{resul.title}}</td>
-          <td>{{resul.des}}</td>
-          <td>{{resul.date}}</td>
-        </tr>
-        {%endfor%}
+       
+        <td></td><td><a href="{{url_for('update',username='{{resul.username}}')}}" ><button >Edit</button></a></td></tr>
         </table> 
       </form>
     </body>

@@ -5,8 +5,12 @@ import bpdb
 import uuid
 import random
 from flask_wtf import FlaskForm
-from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,FileField
+from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,FileField, DateField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
+from flask_mail import Mail, Message
+
 
 id = uuid.uuid1()
 n = random.randint(0,100)
@@ -15,32 +19,52 @@ temp=temp+n
 
 
 app=Flask("__name__")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BEFITDB.sqlite3'
+
 db = SQLAlchemy(app)
 app.secret_key="f3er7677r7q3r5"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BEFITDB.sqlite3'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'u@gmail.com'
+app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+
+mail = Mail(app)
 
 
 class MyForm(FlaskForm):
     name = StringField('Name',[validators.Length(min=5, max=27)])
     username = StringField('Username', [validators.Length(min=5, max=27)])
-    # gender = StringField('gender', validators=[DataRequired()])
     age = IntegerField('Age',validators=[DataRequired()])
     address= StringField('Address', [validators.Length(min=10, max=100)])
     contact = IntegerField('Contact', validators=[DataRequired()])
     email_id = StringField('Email id', validators=[DataRequired()])
-    password = PasswordField('Password', [validators.Length(min=6, max=15)])
-    passwor = PasswordField('Confirm', [validators.Length(min=6, max=15)])
+    password = PasswordField('Password', [validators.EqualTo('passwor', message='Passwords must match')])
+    passwor = PasswordField('Confirm', validators=[DataRequired()])
     # img = FileField('img', validators=[DataRequired()])
     # usertype = StringField('usertype', validators=[DataRequired()])
     # status = StringField('status', validators=[DataRequired()])
 
-# @app.route('/submit', methods=('GET', 'POST'))
-# def submit():
-#     form = MyForm()
-#     if form.validate_on_submit():
-#         return "Successfully Validated"
-    # return render_template('showall.html')
+class BlogForm(FlaskForm):
+    blog_id = IntegerField('Blog_id',validators=[DataRequired()],default=temp)
+    username = StringField('Username', [validators.Length(min=4, max=27)])
+    name = StringField('Name', [validators.Length(min=4, max=27)])
+    image = StringField('Image',validators=[DataRequired()])
+    title= StringField('Title', validators=[DataRequired()])
+    des= StringField('Description', validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()],default=date.today())
+    
+class BlogUpdateForm(FlaskForm):
+    blog_id = IntegerField('Blog_id',validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
+    image = StringField('Image',validators=[DataRequired()])
+    title= StringField('Title', validators=[DataRequired()])
+    des= StringField('Description', validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()],default=date.today())
+
 
 #-----Table Register: tablename-register-----#
 class Register(db.Model):
@@ -103,12 +127,36 @@ def show_all():
 	result1=Register.query.all()
 	return render_template('showall.html',result=result1 )
 
-@app.route('/blog')
-def blog():
-	result1=Blog.query.all()
-	return render_template("blog2.html",result=result1)
+#-----View Blog-----#
+@app.route('/blog/<username>',methods=['GET','POST'])
+def blog(username):
+	if request.method=="POST":
+		return render_template("update2.html",username=username)
 
+	result1=Blog.query.filter_by(username=username).first()
+	return render_template("blog2.html",resul=result1)
+
+
+
+
+@app.route('/update/<username>',methods = ['GET','POST'])
+def update(username):
 	
+	update= Blog.query.filter_by(username=username).first()
+	form = BlogUpdateForm(request.form)
+	if request.method == 'POST':
+		bpdb.set_trace()
+		if update:
+			db.session.delete(update)
+			db.session.commit()
+			update = Blog(username=form.username.data,title= form.title.data,image=form.image.data, des=form.des.data, date=form.date.data, blog_id=form.blog_id.data)
+			db.session.add(update)
+			db.session.commit()
+			username=form.username.data
+			return redirect(url_for('blog',username=username))
+	result1=Blog.query.filter_by(username=username).first()
+	return render_template('update2.html',result=result1,form=form)
+
 
 
 # -----Single Details-----#
@@ -155,56 +203,46 @@ def signup():
 	form = MyForm(request.form)
 
 	if request.method =="POST" and form.validate_on_submit():
-		# return "Successfully Validated"
-		# bpdb.set_trace()
-		register = Register(username=form.username.data,name=form.name.data,gender=request.form['gender'],above_18=form.age.data,address=form.address.data,contact=form.contact.data,email_id=form.email_id.data,password=form.password.data,img="no_image",status="pending",usertype="trainer")	
+		
+		# f = form.img.data
+		# Images = secure_filename(f.Images)
+		# f.save(os.path.join(app.instance_path, 'photos', Images))
+		bpdb.set_trace()
+		register = Register(username=form.username.data,name=form.name.data,gender=request.form['gender'],above_18=form.age.data,address=form.address.data,contact=form.contact.data,email_id=form.email_id.data,password=form.password.data,img="New_image",status="pending",usertype="trainer")	
 		db.session.add(register)
 		db.session.commit()
-		# bpdb.set_trace()
-		# result1=Register.query.filter_by(username=request.form['username']).first()
 		result1=Register.query.all()
+		msg = Message('Welcome', sender = 'u@gmail.com', recipients =[form.email_id.data])
+		msg.body = "Thank you for registering with us"
+		mail.send(msg)
 		return render_template('showall.html',result=result1)	
 	return render_template('sign.html',form=form)	
 
 
-
-# @app.route('/signup',methods=["POST","GET"])
-# def signup():
-#     form=RegistrationForm(request.form)
-#     #bpdb.set_trace()
-#     if request.method =="POST" and form.validate():
-#         #bpdb.set_trace()
-#         user = signup(form.id.data, form.firstname.data, form.lastname.data, form.username.data, form.email.data,form.password.data,form.confirmpassword.data)
-#         db.session.add(user)
-#         return redirect(url_for('users'))
-#     else:   
-#         return render_template('signup.html',form=form) 
-
-
-
-# @app.route('/visits-counter/')
-# def visits():
-#     if 'visits' in session:
-#         session['visits'] = session.get('visits') + 1  # reading and updating session data
-#     else:
-#         session['visits'] = 1
-#     return "Total visits: {}".format(session.get('visits'))
+@app.route('/visits-counter/')
+def visits():
+    if 'visits' in session:
+        session['visits'] = session.get('visits') + 1  # reading and updating session data
+    else:
+        session['visits'] = 1
+    return "Total visits: {}".format(session.get('visits'))
     
-# @app.route('/delete-visits/')
-# def delete_visits():
-# 	# session.clear()
-#     session.pop('visits', None) # delete visits
-#     return 'Visits deleted'
+@app.route('/delete-visits/')
+def delete_visits():
+	# session.clear()
+    session.pop('visits', None) # delete visits
+    return 'Visits deleted'
 
 @app.route('/add_blog/<username>',methods=["GET","POST"])
 def add_blog(username):
-    # bpdb.set_trace()
     
-    if request.method == 'POST':
-        blog = Blog(username=request.form['username'],title= request.form['title'],image=request.form['image'], des=request.form['des'], date=date.today(), blog_id=temp)
-        db.session.add(blog)
-        db.session.commit()
-        # result1=Blog.query.filter_by(username=username).first()
-        return redirect(url_for('blog'))
+    form = BlogForm(request.form)
+    if request.method =="POST":
+    	bpdb.set_trace()
+    	blog = Blog(username=form.username.data,title= form.title.data,image=form.image.data, des=form.des.data, date=form.date.data, blog_id=form.blog_id.data)
+    	db.session.add(blog)
+    	db.session.commit()
+    	username=form.username.data
+    	return redirect(url_for('blog',username=username))
     result1=Register.query.filter_by(username=username).first()
-    return render_template('addblog.html',result=result1) 
+    return render_template('Add_Blog.html',result=result1,form=form) 

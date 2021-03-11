@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <form action="#" method="POST">
+      <table border="3">
+
+         {{ form.csrf_token }}
+       
+        <tr>  <th>{{ form.blog_id.label }}</th><td> {{ form.blog_id(value=result.blog_id) }}</td></tr>
+         <tr> <th>{{ form.username.label }}</th><td>{{ form.username(value=result.username) }}</td></tr>
+         <tr>  <th>{{ form.image.label }}</th><td>{{ form.image(value=result.image) }}</td></tr>
+         <tr>   <th>{{ form.title.label }}</th>  <td>{{ form.title(value=result.title) }}</td></tr>
+         <tr>  <th>{{ form.des.label }}</th><td>{{ form.des(value=result.des) }}</td></tr>
+        <tr>   <th>{{ form.date.label }}</th><td>{{ form.date() }}</td></tr>      
+        <tr>
+        <td></td><td><input type="submit" value="Add"></td></tr>
+        </table> 
+      </form>
+    </body>
+  </html>
+
+
+ 

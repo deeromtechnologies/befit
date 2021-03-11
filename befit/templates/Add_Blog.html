@@ -79,63 +79,82 @@
   <div class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <br>
-        <br>
-        <br>
+       
+        
         <center><h3>Add Blog</h3></center>
-        <br>
-        <br><br>
+        
+        
       </div>
       <div class="card-body">
         <form action="#" method="POST">
+          {{ form.csrf_token }}
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Username </i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.blog_id.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="username" value="{{result.username}}" readonly="">
             
+            {{ form.blog_id() }}
+             </div>
+          <br>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text text-align-center"><i> {{ form.username.label }}</i></span>
+            </div>&nbsp
+            
+            {{ form.username(value=result.username) }}
           </div>
           <br>
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Name </i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.name.label }}</i></span>
             </div>&nbsp
-            <input type="text" class="form-control" name="name" value="{{result.name}}" readonly="">
-            
+           
+            {{ form.name(value=result.name) }}
           </div>
           <br>
           <div class="input-group form-group text-white">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Image</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.image.label }}</i></span>
             </div>&nbsp
-           <input type="text" class="form-control" name="image" value="Image Upload">
+          
+           {{ form.image() }}
           </div>
         
            <br>
             <div class="input-group form-group text-white">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Title</i></span>
+              <span class="input-group-text text-align-center"><i>{{ form.title.label }}</i></span>
            </div>&nbsp
-           <input type="title" name="title" class="form-control">
+          
+          {{ form.title() }}
           </div>
          
          <br>
        
             <div class="input-group form-group text-white">
             <div class="input-group-prepend">
-              <span class="input-group-text text-align-center"><i> Description</i></span>
+              <span class="input-group-text text-align-center"><i> {{ form.des.label }}</i></span>
            </div>&nbsp
-           <textarea name="des" cols="27"> </textarea>
+           
+           {{ form.des() }}
           </div>
          
-         <br><br>
+         <br>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text text-align-center"><i> {{ form.date.label }}</i></span>
+            </div>&nbsp
+           
+            {{ form.date() }}<br>
 
           <div class="form-group">
-           <center> <input type="submit" value="Add" class="btn float-right login_btn text-white"> </center>
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+           <input type="submit" value="Add" class="btn float-right login_btn text-white">
           </div>
-          <br>
+          <br></div>
         </form>
-      
+      </div></div></div></div>
 
       </div>
    
@@ -143,7 +162,6 @@
   </div>
 </div>
 </div>
-
 
 
 
