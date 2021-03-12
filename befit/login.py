@@ -1,21 +1,12 @@
 from flask import render_template,Flask,request,url_for,session,redirect
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime,date
 import bpdb
-import uuid
-import random
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,FileField, DateField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
-
-
-id = uuid.uuid1()
-n = random.randint(0,100)
-temp=id.node
-temp=temp+n
 
 
 app=Flask("__name__")
@@ -26,8 +17,8 @@ app.secret_key="f3er7677r7q3r5"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BEFITDB.sqlite3'
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'u@gmail.com'
-app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USERNAME'] = '****.com'
+app.config['MAIL_PASSWORD'] = '****'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -58,8 +49,8 @@ class BlogForm(FlaskForm):
     date = DateField('Date', validators=[DataRequired()],default=date.today())
     
 class BlogUpdateForm(FlaskForm):
-    blog_id = IntegerField('Blog_id',validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
+    blog_id = IntegerField('Blog_id',validators=[DataRequired()],render_kw={'readonly': True})
+    username = StringField('Username', validators=[DataRequired()],render_kw={'readonly': True})
     image = StringField('Image',validators=[DataRequired()])
     title= StringField('Title', validators=[DataRequired()])
     des= StringField('Description', validators=[DataRequired()])
@@ -131,7 +122,7 @@ def show_all():
 @app.route('/blog/<username>',methods=['GET','POST'])
 def blog(username):
 	if request.method=="POST":
-		return render_template("update2.html",username=username)
+		return redirect(url_for('update',username=username))
 
 	result1=Blog.query.filter_by(username=username).first()
 	return render_template("blog2.html",resul=result1)
@@ -157,15 +148,30 @@ def update(username):
 	result1=Blog.query.filter_by(username=username).first()
 	return render_template('update2.html',result=result1,form=form)
 
+@app.route('/delete/<blog_id>', methods=['GET','POST'])
+def delete(blog_id):
+    delperson= Blog.query.filter_by(blog_id=blog_id).first()
+    if request.method == 'POST':
+        if delperson:
+            db.session.delete(delperson)
+            db.session.commit()
+            return render_template("home.html")
+        return render_template("404.html")
+ 
+    return render_template('delete2.html')
 
 
-# -----Single Details-----#
-# @app.route('/detail/<username>')
+@app.route('/page404')
+def page404():
+    return render_template("404.html")
 
-# def detail(username):
-# 	# bpdb.set_trace()
-# 	detail= Register.query.filter_by(username=username).first()
-# 	return render_template('table.html',result=detail)	
+#-----Single Details-----#
+@app.route('/all_blog')
+
+def all_blog():
+	# bpdb.set_trace()
+	all_blog= Blog.query.all()
+	return render_template('table.html',result1=all_blog)	
 
 #-----Edit Profile-----#
 # @app.route('/edit_profile')
@@ -212,7 +218,7 @@ def signup():
 		db.session.add(register)
 		db.session.commit()
 		result1=Register.query.all()
-		msg = Message('Welcome', sender = 'u@gmail.com', recipients =[form.email_id.data])
+		msg = Message('Welcome', sender = '****.com', recipients =[form.email_id.data])
 		msg.body = "Thank you for registering with us"
 		mail.send(msg)
 		return render_template('showall.html',result=result1)	

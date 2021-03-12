@@ -1,7 +1,7 @@
 <html>
   <body>
     <form action="#" method="POST">
-      <table border="3">
+      <table border="3" style="width: 200px;height:200px;margin-top:100px;margin-left: 400px">
 
         
        
@@ -13,7 +13,10 @@
         <tr>   <th>Date</th><td>{{resul.date}}</td></tr>      
         <tr>
        
-        <td></td><td><a href="{{url_for('update',username='{{resul.username}}')}}" ><button >Edit</button></a></td></tr>
+        <td><button type="button" onclick="window.location.href='{{ url_for( 'delete' , blog_id='{{resul.blog_id}}' ) }}';">Delete</button></td><td>
+          <!-- <a href="{{url_for('update',username='{{resul.username}}')}}" ><button >Edit</button></a> -->
+          <input type="submit" value="Edit">
+        </td></tr>
         </table> 
       </form>
     </body>

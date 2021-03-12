@@ -84,27 +84,24 @@
   <div class="container">
     <div class="row">
       <form action="#" method="POST">
-        <h1 class="text-center text-white"> Profile</h1>
-      <table class="table text-white" style="margin-left: 370px;width:400px">
+        <h1 class="text-center text-white"> Blogs</h1>
+        {% for resul in result1%}
+      <table border=3 class="table text-white col-lg-12" style="margin-left: 370px;width:400px">
         
             
-              <tr> <th>Username</th><td>{{ result.username}}</td></tr>
-              <tr> <th>Name</th> <td>{{ result.name}}</td></tr>
-              <tr> <th>Gender</th><td>{{ result.gender }}</td></tr>
-              <tr> <th>Above 18 or not</th> <td>{{ result.above_18 }}</td></tr>
-              <tr> <th>Contact</th><td>{{ result.contact}}</td></tr>
-              <tr> <th>Email id</th><td>{{ result.email_id}}</td></tr>
-              <tr> <th>Password</th><td>{{ result.password}}</td></tr>
-              <tr> <th>Image</th><td>{{ result.img}}</td></tr>
-              <tr> <th>Status</th><td>{{ result.status}}</td></tr>
-              <tr><th>Usertype</th><td>{{ result.usertype}}</td></tr>
+             
+        <tr>  <th>Blog id</th><td>{{resul.blog_id}}</td></tr>
+         <tr> <th>Username</th><td>{{resul.username}}</td></tr>
+         <tr>  <th>Image</th><td>{{resul.image}}</td></tr>
+         <tr>   <th>Title</th>  <td>{{resul.title}}</td></tr>
+         <tr>  <th>Description</th><td>{{resul.des}}</td></tr>
+        <tr>   <th>Date</th><td>{{resul.date}}</td></tr>      
+        <tr>
             
          
          
         </table>
-          </div>
-          <div class="form-group">
-           <center> <input type="submit" value="Edit Profile" class="btn float-right login_btn text-white"> </center>
+        {%endfor%}
           </div>
          
         </form>
@@ -115,34 +112,9 @@
   </div>
 </div>
 </div>
-<br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br>
 
-<footer>
-  <!-- Footer -->
-  <section id="footer">
-    <div class="container">
-     
-        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-          <ul class="list-unstyled list-inline social text-center">
-            <li class="list-inline-item"><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-            <li class="list-inline-item"><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-google-plus"></i></a></li>
-            <li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
-          </ul>
-          <ul class="list-unstyled list-inline social text-center text-white">
-            <li class="list-inline-item">✆ +91 9834 457 4324</li>
-            <li class="list-inline-item">✉ BeFit@gmail.com</li>
-          </ul>
-        </div>
-        <hr>
-        <center><p class="h6"><a class="text-green ml-2" href="https://www.BeFit.com" target="_blank">©Copyright 2021.All right Reserved.</a></p></center>
-      </div>  
-    </div>
-  </section>
-  <!-- ./Footer -->
+
+
 
    </footer> 
   </body>
