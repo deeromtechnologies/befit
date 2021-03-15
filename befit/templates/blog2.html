@@ -12,8 +12,11 @@
          <tr>  <th>Description</th><td>{{resul.des}}</td></tr>
         <tr>   <th>Date</th><td>{{resul.date}}</td></tr>      
         <tr>
-       
-        <td><button type="button" onclick="window.location.href='{{ url_for( 'delete' , blog_id='{{resul.blog_id}}' ) }}';">Delete</button></td><td>
+        
+        <td>
+          <!-- <button type="button" onclick="window.location.href='{{ url_for( 'delete' , blog_id=resul.blog_id ) }}';">Delete</button> -->
+          <a href='{{ url_for( "delete" , blog_id=resul.blog_id ) }}'><button type="button">Delete</button> </a>
+        </td><td>
           <!-- <a href="{{url_for('update',username='{{resul.username}}')}}" ><button >Edit</button></a> -->
           <input type="submit" value="Edit">
         </td></tr>

@@ -1,24 +1,48 @@
-from flask import render_template,Flask,request,url_for,session,redirect
+from flask import render_template,Flask,request,url_for,session,redirect,flash
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime,date
 import bpdb
+import uuid
+import random
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,FileField, DateField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
+# import os
+# from sqla_wrapper import SQLAlchemy
+from flask_login import UserMixin
+from flask import Blueprint
+from flask_login import LoginManager
+from flask_login import login_user, logout_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_required, current_user
+
+id = uuid.uuid1()
+n = random.randint(0,100)
+temp=id.node
+temp=temp+n
 
 
 app=Flask("__name__")
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(username):
+	return Register.query.filter_by(username=username).first()
+	# return db.query(Register).get(int(username))
 
 db = SQLAlchemy(app)
 app.secret_key="f3er7677r7q3r5"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BEFITDB.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///befit.sqlite3'
+
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = '****.com'
-app.config['MAIL_PASSWORD'] = '****'
+app.config['MAIL_USERNAME'] = 'you@gmail.com'
+app.config['MAIL_PASSWORD'] = '*****'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -56,9 +80,12 @@ class BlogUpdateForm(FlaskForm):
     des= StringField('Description', validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()],default=date.today())
 
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
 
 #-----Table Register: tablename-register-----#
-class Register(db.Model):
+class Register(UserMixin,db.Model):
 
 	username = db.Column(db.String(80), primary_key=True)
 	name = db.Column(db.String(80), unique=False, nullable=False)
@@ -87,7 +114,7 @@ class Register(db.Model):
 		self.status = status
 
 #-----Table Blog: tablename-blog-----#
-class Blog(db.Model):
+class Blog(UserMixin,db.Model):
 
 	blog_id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), db.ForeignKey('register'), nullable=False)
@@ -104,6 +131,10 @@ class Blog(db.Model):
 		self.title = title
 		self.des = des
 		self.date = date
+
+
+
+
 
 #-----Home-----#
 @app.route('/')
@@ -143,6 +174,7 @@ def update(username):
 			update = Blog(username=form.username.data,title= form.title.data,image=form.image.data, des=form.des.data, date=form.date.data, blog_id=form.blog_id.data)
 			db.session.add(update)
 			db.session.commit()
+			# query = Notification.query.filter(Notification.id.in_(my_list)).all()
 			username=form.username.data
 			return redirect(url_for('blog',username=username))
 	result1=Blog.query.filter_by(username=username).first()
@@ -173,28 +205,35 @@ def all_blog():
 	all_blog= Blog.query.all()
 	return render_template('table.html',result1=all_blog)	
 
-#-----Edit Profile-----#
-# @app.route('/edit_profile')
-# def detail():
-# 	detail= Register.query.filter_by(username=username).first()
-# 	return render_template('detail.html',result=detail)	
-
-
 #-----Login-----#
 @app.route('/login',methods=['GET','POST'])
 def login():
-		if request.method =="POST":
-			username=request.form['username']
-			password=request.form['password']
+		form = LoginForm(request.form)
+		if request.method =="POST" and form.validate_on_submit() :
+			# login_user(register)
+			
+			username=form.username.data
+			password=form.password.data
+			# remember = True if request.form.get('remember') else False
 			session["username"]=username
-			session["password"]=password
+			# session["password"]=password
+			# return redirect(url_for('add_blog',username=username))
+		# else:
+			user=Register.query.filter_by(username=username).first()
+			if not user or not (user.password == password):
+				return "Please check your login credentials and try again"
 			return redirect(url_for('add_blog',username=username))
-		else:
+			# login_user(user, remember=remember)
+				
+			# if "username" in session:
+			# return redirect(url_for('home'))
 
-			if "username" in session:
-				return redirect(url_for('home'))
+		return render_template("login.html",form=form)
 
-			return render_template("login.html")
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name, mail=current_user.email_id)
 
 #-----Logout-----#
 @app.route("/logout")
@@ -218,7 +257,7 @@ def signup():
 		db.session.add(register)
 		db.session.commit()
 		result1=Register.query.all()
-		msg = Message('Welcome', sender = '****.com', recipients =[form.email_id.data])
+		msg = Message('Welcome', sender = 'you@gmail.com', recipients =[form.email_id.data])
 		msg.body = "Thank you for registering with us"
 		mail.send(msg)
 		return render_template('showall.html',result=result1)	

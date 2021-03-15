@@ -17,7 +17,7 @@
       
       <nav class="navbar navbar-expand-lg navbar-light ">
          <div class="container-fluid">
-          <img src="Images/logo.jpeg" height=130px width=160px>
+          <img src="/static/Images/logo.jpeg" height=130px width=160px>
              <!-- <a class="navbar-brand text-white" href="home.html"><h1>BeFit</h1></a> -->
                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -54,19 +54,6 @@
                          <li class="nav-item">
                          <a class="nav-link text-white" href="gallery.html">Gallery</a>
                        </li>
-                    <!--  <li class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                          <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                             <li><a class="dropdown-item text-dark" href="add.html">Add</a></li>
-                             <li><hr class="dropdown-divider"></li>
-                             <li><a class="dropdown-item text-dark" href="update.html">Update</a></li>
-                             <li><hr class="dropdown-divider"></li>
-                             <li><a class="dropdown-item text-dark" href="delete.html">Delete</a></li>
-                          </ul>
-                      </li> -->
-                      <!-- <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                       </li> -->
                     </ul>
 
 
@@ -80,6 +67,8 @@
           </div>
         </div>
       <!-- Navigation -->
+      <form action="#" method="POST">
+       <!--  {%for resul in result%} -->
       <div class="blog2">
  <div class="container">
  <h1 class="">Blogs</h1>
@@ -90,7 +79,7 @@
    <div class="col-md-4 col-lg-4 col-sm-12">
     <div class="card">
      <div class="card-img">
-      <img src="Images/arjuntk.jpg" class="img-fluid">
+      <img src="/staticImages/{{resul.image}}" class="img-fluid">
      </div>
     </div>
    </div>
@@ -99,63 +88,31 @@
    <div class="col-md-4 col-lg-4 col-sm-12">
     <div class="card">     
      <div class="card-body">
-        <h4 class="card-title">Arjun TK won Mr.Pathanamthitta contest</h4>
+        <h4 class="card-title">{{resul.title}}</h4>
       <p class="card-text text-white">
-      He was crowned Mr. Pathanamthitta championship organised Pathanamthitta Body Building Federation at Pathanamthitta.He was a frequenter in BeFit fitness centre from 2016.
+      {{resul.des}}
       </p>
+      {{resul.username}}
+      {{resul.date}}
      </div>
     </div>
-   </div>
+   <!-- </div> -->
   
    <div class="col-md-4 col-lg-2 col-sm-12">
-     <input type="button" class="btna text-white" name="btna" value="Delete">
+    <a href='{{ url_for( "delete" , blog_id=resul.blog_id ) }}'><button type="button" class="btna text-white btn" name="delete">Delete
+    </button> </a>
      <br><br>
-     <input type="button" class="btna text-white"  name="btnb" value="Update">
+     <input type="submit" name="" value="Update">
    </div>
-
-
-
-<div class="container"><br><br></div>
-
-<div class="container">
-  <div class="row">
-   <div class="col-md-4 col-lg-4 col-sm-12">
-    <div class="card">
-     <div class="card-img">
-      <img src="Images/service3.jpg" class="img-fluid">
-     </div>
-    </div>
-   </div>
-  &nbsp&nbsp&nbsp&nbsp&nbsp
-
- <div class="col-md-4 col-lg-4 col-sm-12">
-    <div class="card">
-     <div class="card-body">
-        <h4 class="card-title">Indoor running track</h4>
-      <p class="card-text text-white">
-       
-     Now we have the widest flexibility pertaining to the indoor running track floorings.
-      </p>
-     </div>
-    </div>
-   </div>
-
- <div class="col-md-4 col-lg-2 col-sm-12">
-     <input type="button" class="btna text-white" name="btnc" value="Delete">
-     <br><br>
-     <input type="button" class="btna text-white"  name="btnd" value="Update">
-   </div>
-
-   <div class="container"><br></div>
-  
-<div class="container"><input type="button" class="btnb text-white" name="btnb" value="Add New Blog"></div>
-
+ <!-- {%endfor%}  -->
+<div class="container"><input type="button" class="btnb text-white btn" name="add" value="Add New Blog"></div>
+</form>
   </div>
  </div>
 </div></div></div>
        <!-- Footer -->
 
-       <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
        <footer>
   <section id="footer">
     <div class="container">

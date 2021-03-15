@@ -105,19 +105,21 @@
       <div class="card-body">
        
         <form action="{{url_for('login')}}" method="POST" id="form_login">
+          {{ form.csrf_token }}
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text text-align-center"><i class="fa fa-user"></i></span>
             </div>
-            <input type="text" class="form-control" placeholder="username" name="username">
-            
+            <!-- <input type="text" class="form-control" placeholder="username" name="username"> -->
+            {{ form.username(class="form-control",placeholder="username") }} 
           </div>
           <br>
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fa fa-key"></i></span>
             </div>
-            <input type="password" class="form-control" placeholder="password" name="password">
+             {{ form.password(class="form-control",placeholder="password") }}
+            <!-- <input type="password" class="form-control" placeholder="password" name="password"> -->
           </div>
           <div class="row align-items-center remember">
             <input type="checkbox">Remember Me
